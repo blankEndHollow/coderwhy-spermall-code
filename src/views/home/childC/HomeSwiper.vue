@@ -2,7 +2,7 @@
   <swiper>
         <swiper-item v-for="item of banners">
           <a :href="item.link">
-            <img :src="item.image" alt="">
+            <img :src="item.image" alt="" @load="imgOver">
           </a>
         </swiper-item>
    </swiper>
@@ -19,9 +19,22 @@ export default {
       }
     }
   },
+  data(){
+    return {
+      doLoad:false,
+    }
+  },
   components:{
     Swiper, 
     SwiperItem
+  },
+  methods:{
+    imgOver(){
+        if(!this.doLoad){
+          this.$emit("swiperImgOver")
+          this.doLoad= !this.doLoad;
+        }
+    }
   }
 }
 </script>

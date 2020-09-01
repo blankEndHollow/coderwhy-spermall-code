@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
     
-
-       <ul >
+<div class="content">
+    
+    <ul >
       <li>1</li>
       <li>2</li>
       <li>3</li>
@@ -105,7 +106,8 @@
       <li>100</li>
     </ul>
 
-      
+  
+  </div>      
    
   </div>
 </template>
@@ -122,26 +124,26 @@ export default {
     }
   },
   mounted(){
-   this.bs= new BS(".wrapper",{
+   this.bs= new BS(".content",{
       probeType:3,
       pullUpLoad:true,
    })
-  let finish=null;
-   this.bs.on("scroll",(eve)=>{
-    //  console.log(eve)
-   })
-   this.bs.on("pullingUp",(e)=>{
-    console.log("----------------------------------")
-    if(finish) clearTimeout(finish);
-    finish =setTimeout(()=>{
-      this.bs.finishPullUp()
-    },2000);
-   })
+  // let finish=null;
+  //  this.bs.on("scroll",(eve)=>{
+  //   //  console.log(eve)
+  //  })
+    //  this.bs.on("pullingUp",(e)=>{
+    //   console.log("----------------------------------")
+    //   if(finish) clearTimeout(finish);
+    //   finish =setTimeout(()=>{
+    //     this.bs.finishPullUp()
+    //   },2000);
+    //  })
   }
 }
 </script>
 <style  scoped>
-  .wrapper{
+  .content{
     height: 200px;
     background-color: silver;
     /* overflow: hidden; */

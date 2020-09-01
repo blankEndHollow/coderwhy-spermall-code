@@ -26,5 +26,5 @@ export default new VueRouter({
       component:()=>import("views/profile/profile")
     },
   ],
-  mode:"history"
+  // mode:"history"
 })

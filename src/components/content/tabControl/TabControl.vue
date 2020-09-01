@@ -29,9 +29,6 @@ export default {
          this.currentIndex=n;
          this.$emit("tabClick",n)
       },
-      s(n){
-
-      }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item">
-      <img :src="goodsItem.show.img" alt="">
+      <img @load="loadOver" :src="goodsItem.show.img" alt="">
       <div class="goods-info">
         <p>{{goodsItem.title}}</p>
         <span class="price">{{goodsItem.price}}</span>
@@ -11,12 +11,24 @@
 
 <script>
 export default {
+  data(){
+    return {
+      timer:null,
+    }
+  },
   props:{
     goodsItem:{
       type:Object,
       default(){
         return {}
       }
+    }
+  },
+  methods:{
+    loadOver(){
+
+      this.$bus.$emit("itemImageOver")
+     
     }
   }
 }
