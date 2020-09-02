@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="itemClick">
       <img @load="loadOver" :src="goodsItem.show.img" alt="">
       <div class="goods-info">
         <p>{{goodsItem.title}}</p>
@@ -26,9 +26,12 @@ export default {
   },
   methods:{
     loadOver(){
-
+      //事件总线，不是上下级关系
       this.$bus.$emit("itemImageOver")
      
+    },
+    itemClick(){
+      this.$router.push(`${this.$route.path}/detail/${this.goodsItem.iid}`)
     }
   }
 }

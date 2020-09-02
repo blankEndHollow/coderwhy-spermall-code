@@ -25,6 +25,10 @@ export default new VueRouter({
       path:"/profile",
       component:()=>import("views/profile/profile")
     },
+    {
+      path:"/:nor/detail/:id",
+      component:()=>import("views/detail/Detail")
+    }
   ],
-  // mode:"history"
+  mode:"history"
 })

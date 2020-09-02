@@ -37,8 +37,12 @@ export default {
 
   },
   methods:{
-    backTop(x,y,del=500){
-     this.scroll && this.scroll.scrollTo(x,y,del)
+    scrollTo(x,y,del=500){
+     if(del==0){
+       this.scroll && this.scroll.scrollTo(x,y)
+     }else{
+       this.scroll && this.scroll.scrollTo(x,y,del)
+     }
     },
     finishPullUp(){
      
@@ -65,6 +69,9 @@ export default {
             this.$emit('pullingUp')
       
         })
+    },
+    getScrollY(){
+      return this.scroll ? this.scroll.y : 0
     }
   }
 }

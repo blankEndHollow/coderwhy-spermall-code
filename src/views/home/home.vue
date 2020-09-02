@@ -64,6 +64,9 @@ export default {
     showBackTop:false,
     tabOffsetTop:0,
     doFixed:false,
+    save:0,
+    saveAll:[-544,-544,-544],
+    desave:0,
     }
   },
   created(){
@@ -113,6 +116,11 @@ export default {
     },
 
     tabClick(n){
+     
+      this.saveAll[this.desave]=this.$refs.scroll.getScrollY()
+      this.desave=n;
+      this.$refs.scroll.scrollTo(0,this.saveAll[this.desave],0)
+      
       //接受传出的索引值，转换类型
         switch(n){
           case 0:  this.currentType='pop';  break;
@@ -125,7 +133,7 @@ export default {
     },
 
     backTop(){
-      this.$refs.scroll.backTop(0,0)
+      this.$refs.scroll.scrollTo(0,0)
     },
 
     contentScroll(s){
@@ -142,6 +150,16 @@ export default {
      //获取tabcontrol的offsetTop
       this.tabOffsetTop=this.$refs.tabC.$el?.offsetTop 
     },
+  },
+  activated(){
+    //加载离开此页面的滑动距离
+     this.$refs.scroll.refresh()
+    this.$refs.scroll.scrollTo(0,this.save,0)
+   
+  },
+  deactivated(){
+    //保存离开前的距离
+   this.save = this.$refs.scroll.getScrollY()
   }
 }
 </script>
