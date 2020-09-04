@@ -29,7 +29,10 @@ export default {
     },
     methods:{
       titleClick(index){
+        //修改切换款式类型
         this.currentIndex=index
+        //发出点击事件
+        this.$emit('titleClick', index)
       },
       backClick(){
         this.$router.back()

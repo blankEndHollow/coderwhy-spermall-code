@@ -26,7 +26,7 @@ export default new VueRouter({
       component:()=>import("views/profile/profile")
     },
     {
-      path:"/:nor/detail/:id",
+      path:"/detail/:id",
       component:()=>import("views/detail/Detail")
     }
   ],

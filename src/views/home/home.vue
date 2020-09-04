@@ -1,24 +1,29 @@
 <template>
    <div id="home" class="wrapper" >
+     <!-- 导航栏 -->
      <nav-bar class="home-nav"> <div slot="center">购物街</div> </nav-bar>
     <!-- 下拉可见，占位组件 -->
       <tab-control @tabClick="tabClick" 
                        :titles="['流行','新款','精选']" 
                        ref="tabCTop" class="tab-control-top" v-show="doFixed" />
-
+    <!-- 可滚动区域 -->
      <scroll class="content" ref="scroll" 
              :probe-type="3" @scroll="contentScroll" 
              :pull-up-load="true" @pullingUp="loadMore(currentType)">
+    <!-- 主页轮播图 -->
           <home-swiper :banners="banners.list" @swiperImgOver="imgOver" />
-          <home-recommend-view :recommend="recommends.list" />
-          <home-feature-view />
+    <!-- 推荐模块展示 -->
+          <home-recommend-view :recommend="recommends.list" @imgFulfil="imgOver" />
+    <!-- 简单图片 -->
+          <home-feature-view @imgFulfil="imgOver" />
           <!-- 为false时展示 -->
           <tab-control @tabClick="tabClick" 
                        :titles="['流行','新款','精选']" 
                        ref="tabC"  />
+    <!-- 商品列表 -->
           <goods-list :goods="showGoods" />
      </scroll>
-
+    <!-- 回到顶部 -->
        <back-top @click.native="backTop" v-show="showBackTop" />   
 
    </div>  
@@ -31,12 +36,9 @@ import HomeRecommendView from "./childC/HomeRecommendView"
 import HomeFeatureView from "./childC/HomeFeatureView"
 
 import TabControl from "components/content/tabControl/TabControl"
-import GoodsList from "components/content/goods/GoodsList"
-import Scroll from "components/common/scroll/Scroll"
-import BackTop from "components/content/backTop/BackTop"
-import US from "common/utils"
-import {getHomeMultidata, getHomeGoods} from "network/home"
 
+import {getHomeMultidata, getHomeGoods} from "network/home"
+import {itemListenerMixin, backTopMixin} from "common/mixin"
 
 
 export default {
@@ -47,9 +49,7 @@ export default {
    HomeRecommendView,
    HomeFeatureView,
    TabControl,
-   GoodsList,
-   Scroll,
-   BackTop,
+   
   },
   data(){
     return {
@@ -61,14 +61,15 @@ export default {
        'sell':{page:0,list:[]},
      },
      currentType:'pop',
-    showBackTop:false,
     tabOffsetTop:0,
     doFixed:false,
     save:0,
-    saveAll:[-544,-544,-544],
+    saveAll:[],
     desave:0,
+   
     }
   },
+  mixins:[itemListenerMixin, backTopMixin],
   created(){
     //再次包装
     //请求轮播图和recommend的数据
@@ -80,12 +81,7 @@ export default {
    
   },
   mounted(){ 
-    //防抖函数
-    let deb=US.debounce(this.$refs.scroll.refresh,100)
-    this.$bus.$on("itemImageOver", ()=>{
-      deb();
-   })
-
+    
   },
   computed:{
     showGoods(){
@@ -116,7 +112,7 @@ export default {
     },
 
     tabClick(n){
-     
+     //保存流行、新款、精选的scroll位置
       this.saveAll[this.desave]=this.$refs.scroll.getScrollY()
       this.desave=n;
       this.$refs.scroll.scrollTo(0,this.saveAll[this.desave],0)
@@ -131,11 +127,6 @@ export default {
         this.$refs.tabCTop.currentIndex=n;
         this.$refs.tabC.currentIndex=n;
     },
-
-    backTop(){
-      this.$refs.scroll.scrollTo(0,0)
-    },
-
     contentScroll(s){
       //监听tabcontrol吸顶
       this.doFixed = (-s.y) >this.tabOffsetTop;
@@ -148,18 +139,22 @@ export default {
     },
     imgOver(){
      //获取tabcontrol的offsetTop
-      this.tabOffsetTop=this.$refs.tabC.$el?.offsetTop 
+      this.tabOffsetTop=this.$refs.tabC.$el?.offsetTop
+      //保存三个款式的滚轮位置
+      this.saveAll[2]=this.saveAll[1]=this.saveAll[0]= -this.tabOffsetTop
     },
   },
   activated(){
     //加载离开此页面的滑动距离
-     this.$refs.scroll.refresh()
+    this.$refs.scroll.refresh()
     this.$refs.scroll.scrollTo(0,this.save,0)
-   
+    this.$bus.$on("itemImageOver", this.itemImgListener)
   },
   deactivated(){
     //保存离开前的距离
    this.save = this.$refs.scroll.getScrollY()
+   //取消全局事件监听,...
+   this.$bus.$off('itemImageOver', this.itemImgListener)
   }
 }
 </script>

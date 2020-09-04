@@ -86,10 +86,12 @@ export default {
 
 .info-service {
   justify-content: space-between;
-  line-height: 60px;
-  display: flex; 
+   line-height: 60px;
+  display: flex;  
 }
-
+.info-service-item{
+  flex: 1;
+}
 .info-service-item img {
   position: relative;
   height: 14px;
@@ -100,6 +102,7 @@ export default {
 .info-service-item span {
   margin-left: 5px;
   color: #333333;
-  font-size: 13px;
+  font-size: 11px;
+  
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="recommend">
       <div v-for="item of recommend" class="recommend-item">
         <a :href="item.link">
-          <img :src="item.image" alt="">
+          <img :src="item.image" @load="imgFulfil" alt="">
           <div>{{item.title}}</div>
         </a>
       </div>
@@ -17,6 +17,24 @@ export default {
         default(){
           return []
         }
+      }
+    },
+    data(){
+      return{
+        imgLenght:0,
+        counter:0,
+      }
+    },
+    methods:{
+      imgFulfil(){
+        if(++this.counter === this.imgLength){
+            this.$emit('imgFulfil')
+        }
+      }
+    },
+    watch:{
+      recommend(){
+       this.imgLength=this.recommend.length
       }
     }
 }

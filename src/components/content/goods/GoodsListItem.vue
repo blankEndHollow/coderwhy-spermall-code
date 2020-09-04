@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-      <img @load="loadOver" :src="goodsItem.show.img" alt="">
+      <img @load="loadOver" :src="showImg" alt="">
       <div class="goods-info">
         <p>{{goodsItem.title}}</p>
         <span class="price">{{goodsItem.price}}</span>
@@ -24,6 +24,12 @@ export default {
       }
     }
   },
+  computed:{
+    showImg(){
+
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   methods:{
     loadOver(){
       //事件总线，不是上下级关系
@@ -31,7 +37,13 @@ export default {
      
     },
     itemClick(){
-      this.$router.push(`${this.$route.path}/detail/${this.goodsItem.iid}`)
+      if(this.goodsItem.image){
+        // console.log(`/${this.$route.params.nor}/detail/${this.goodsItem.item_id}`)
+        //  this.$router.push(`/detail/${this.goodsItem.item_id}`)
+      }else{
+         this.$router.push(`/detail/${this.goodsItem.iid}`)
+      }
+     
     }
   }
 }
