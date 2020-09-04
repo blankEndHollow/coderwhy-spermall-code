@@ -9,13 +9,14 @@
     <cart-list />
 
     <!-- 汇总 -->
-
+    <cart-total-bar></cart-total-bar>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar"
 import CartList from "./childC/cartList"
+import CartTotalBar from "./childC/CartTotalBar"
 //导入vuex里的getters属性
 import {mapGetters} from "vuex"
 
@@ -27,6 +28,7 @@ export default {
   components:{
       NavBar,
       CartList,
+      CartTotalBar,
   }
 }
 </script>

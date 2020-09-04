@@ -12,8 +12,8 @@
 
 <style scoped>
   .slide {
-    width: 100%;
     flex-shrink: 0;
+    width: 100%;  
   }
 
   .slide img {

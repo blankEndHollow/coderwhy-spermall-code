@@ -86,7 +86,7 @@ export default {
         this.topImages=data.itemInfo.topImages
         
         //保存商品信息
-        this.goods= new Goods(data.itemInfo, data.columns, data.shopInfo.services)
+        this.goods= new Goods(data.itemInfo, data.columns, data.shopInfo.services,data.detailInfo)
        
        //保存店铺信息
         this.shop= new Shop(data.shopInfo)
@@ -160,14 +160,13 @@ export default {
       addToCart(){
         //提取购物车展示需要的数据
         const product={
+          price:this.goods.realPrice,
           image:this.topImages[0],
           title:this.goods.title,
-          desc:this.goods.desc,
-          price:this.goods.realPrice,
+          desc:this.goods.desc, 
           iid:this.iid,
         }
-        
-        // this.$store.commit('addCart',product)
+        //添加到vuex
         this.$store.dispatch('addCart',product)
       }
     },

@@ -9,7 +9,7 @@
        <div slot="center" class="title">
           <div v-for="(item,index) of titles" 
                class="title-item" @click="titleClick(index)"
-               :class="{active:index == currentIndex}" >{{item}}</div>
+               :class="{active:index == currentIndex}" :key="index" >{{item}}</div>
        </div>
        </nav-bar>
   </div>
