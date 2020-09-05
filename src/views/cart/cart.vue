@@ -29,7 +29,8 @@ export default {
       NavBar,
       CartList,
       CartTotalBar,
-  }
+  },
+  
 }
 </script>
 <style  scoped>

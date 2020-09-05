@@ -164,6 +164,7 @@ export default {
           image:this.topImages[0],
           title:this.goods.title,
           desc:this.goods.desc, 
+          shopN:this.shop.name,
           iid:this.iid,
         }
         //添加到vuex

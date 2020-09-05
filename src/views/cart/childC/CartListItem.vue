@@ -1,7 +1,19 @@
 <template>
-    <div id="shop-item">
+    <div class="show-content">
+      <div class="shop-head">
+        <span class="shop-icon">
+            <div class="shop-click">
+              <!-- <check-button :isChecked="product.checked" @click.native="checkB(product.checked)" /> -->
+            </div>
+            <div class="icon-mg">
+                  
+            </div>
+        </span>
+        <div class="shop-name"><span>{{product.shopN}}</span><div class="gt"></div></div>
+      </div>
+      <div id="shop-item">
       <div class="item-selector">
-        <check-button :isChecked="product.checked" @click.native="checkB(product.checked)" />
+        <check-button :is-checked="product.checked" @click.native="checkB(product.checked)" />
       </div>
       <div class="item-img">
         <img :src="product.image" alt="商品图">
@@ -14,6 +26,7 @@
           <div class="item-count right">x{{product.count}}</div>
         </div>
       </div>
+    </div>
     </div>
 </template>
 
@@ -42,8 +55,47 @@ export default {
 </script>
 
 <style scoped>
+.show-content{
+  border-top: 10px solid rgb(238, 238, 238,0.5);
+}
+.show-content .shop-head{
+  border-bottom: 1px solid rgb(238, 238, 238,0.8);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 30px; 
+  font-size: 13px;
+  display: flex;
+  height: 30px;
+}
+.show-content .shop-icon{ 
+  align-items: center; 
+  display: flex;
+  height: 100%;
+  width: 50px;
+}
+.show-content .shop-click{
+  padding: 0 0 0 9px;
+  width: 10px;
+}
+.show-content .icon-mg{
+  background: url("~assets/img/cart/mg.png") no-repeat;
+  background-position:center;
+  background-size: 16px;
+  margin:0 10px 0;
+  height: 20px;
+  width: 20px;
+}
+.show-content .shop-name{
+  display: flex;
+  width: 150px;
+}
+.show-content .shop-name .gt{
+  background: url('~assets/img/common/arrow-left.svg') no-repeat;
+  background-position: right center;
+  background-size: 15px;
+  margin-left: 8px;
+  width: 20px;
+}
 #shop-item{
-  border-bottom: 1px solid #ccc;
   display: flex;
   font-size: 0;
   padding: 5px;

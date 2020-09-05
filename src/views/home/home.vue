@@ -161,8 +161,8 @@ export default {
 <style  scoped>
    #home{
     /* padding-top: 44px; */
-    height: 100vh;
     position: relative;
+    height: 100vh;
   }
   .home-nav{
     background-color: var(--color-tint);
@@ -177,16 +177,16 @@ export default {
   /* 原生滚动吸顶 */
   /* .tab-control{
     position: sticky;
-    top: 44px;
     z-index: 20;
+    top: 44px;
   } */
   .content{
     overflow: hidden;
     position: absolute;
-    top: 44px;
     bottom: 49px;
-    left: 0;
+    top: 44px;
     right: 0;
+    left: 0; 
   }
   .tab-control-top{
     position: relative;
