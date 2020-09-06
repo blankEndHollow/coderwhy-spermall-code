@@ -8,7 +8,7 @@
       <div class="total-price">
           合计：<span class="total-text">￥{{totalPrice}}</span>
       </div>
-      <div class="calculate">
+      <div class="calculate" @click="calcTo">
            <span> 结算({{calcLength}})</span>
       </div>
   </div>
@@ -24,27 +24,33 @@ export default {
    computed:{
      ...mapGetters(['collList']),
      totalPrice(){
+       //统计商品总价
        return this.collList.filter(item=>item.checked)
               .reduce((previous,current)=>{
                 return previous+current.price*current.count
               },0).toFixed(2)
      },
      calcLength(){
+       //获取购物车商品的数量
        return this.collList.filter(item=>item.checked).length
      },
      isSelectAll(){
-       
+       //只要有一个没被选中就为false
        return !!this.collList.length && !this.collList.some(item=>!item.checked)
      }
    },
    methods:{
      checkAll(){
-       let finish=this.collList.some(item=>!item.checked);
-       if(finish){
-         this.$store.commit('updateChecked',finish)
+      //通过isSelectAll绝定是否全选或全不选
+       if(this.isSelectAll){
+          this.collList.forEach(item=>item.checked=false)
        }else{
-         this.$store.commit('updateChecked',finish)
+         this.collList.forEach(item=>item.checked=true)
        }
+
+     },
+     calcTo(){
+      if(!this.isSelectAll) this.$toast.show('请选择商品')
      }
    }
 }

@@ -23,6 +23,7 @@
      <back-top @click.native="backTop" v-show="showBackTop" />
      <!-- 底部导航栏 -->
      <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
+     
   </div>
 </template>
 
@@ -38,6 +39,10 @@ import DetailBottomBar from "./childC/DetailBottomBar"
 
 import PU from "guyut"
 import {itemListenerMixin, backTopMixin} from "common/mixin"
+
+import {mapActions} from "vuex"
+
+
 
 import {
   getDetail, 
@@ -57,7 +62,8 @@ export default {
       DetailImagesInfo,
       DetailParamInfo,
       DetailCommentInfo,
-      DetailBottomBar,  
+      DetailBottomBar,
+ 
     },
     mixins:[itemListenerMixin, backTopMixin],
     data(){
@@ -129,6 +135,8 @@ export default {
       // console.log('my source is detail')
     },
     methods:{
+      //映射vuex里的方法到此组件里
+      ...mapActions(['addCart']),
       imgOver(){
         //接受展示图片的加载完成并刷行
        this.$refs['scroll'].refresh && this.$refs['scroll'].refresh()
@@ -167,8 +175,11 @@ export default {
           shopN:this.shop.name,
           iid:this.iid,
         }
-        //添加到vuex
-        this.$store.dispatch('addCart',product)
+        //添加到vuex,从vuex里映射来的函数
+        this.addCart(product).then(res=>{
+          this.$toast.show(res)
+        })
+
       }
     },
     destroyed(){
