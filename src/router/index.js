@@ -30,5 +30,5 @@ export default new VueRouter({
       component:()=>import("views/detail/Detail")
     }
   ],
-  mode:"history"
+  // mode:"history"
 })
