@@ -8,7 +8,7 @@ export function request(config,s){
     }
    
     if(s!=0){
-      options.baseURL="xxxxxx"
+      options.baseURL="http://152.136.185.210:8000/api/w6"
     }
     const instance=axios.create(options)
     instance.interceptors.request.use(config=>{
