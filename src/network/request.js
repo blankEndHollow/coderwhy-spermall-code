@@ -3,12 +3,12 @@ import axios from "axios"
 export function request(config,s){
     s=s ?? 0;
     const options={
-        baseURL:"http://123.207.32.32:8000",
+        baseURL:"xxxxxxxx",
         timeout:6000
     }
    
     if(s!=0){
-      options.baseURL="http://152.136.185.210:8000/api/w6"
+      options.baseURL="xxxxxxxx"
     }
     const instance=axios.create(options)
     instance.interceptors.request.use(config=>{
